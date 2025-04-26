@@ -1,0 +1,10 @@
+#ignoring virtual env 
+
+ytc_venv/
+
+#ignore env file
+.env 
+
+#ignoring 
+.DS_Store
+
