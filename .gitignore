@@ -1,6 +1,6 @@
 #ignoring virtual env 
 
-ytc_venv/
+venv_ytcb/
 
 #ignore env file
 .env 
