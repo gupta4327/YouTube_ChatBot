@@ -1,17 +1,16 @@
-from langchain_openai import ChatOpenAI
-from memory_handler import get_history
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
+from langchain_core.runnables import RunnableParallel, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 
 class Response:
 
-    def __init__(self, model, system_prompt:str, user_id:str, retriever, parser=None):
+    def __init__(self, model, system_prompt:str, user_id:str, retriever, get_history, parser=None):
 
         self.model = model
         self.system_prompt = system_prompt
         self.user_id = user_id
         self.retriever = retriever
+        self.get_history = get_history
         self.parser = parser or StrOutputParser()
         self.build_chain()
 
@@ -57,6 +56,6 @@ class Response:
 
         self.response_chain.invoke({"query":query, "user_id": self.user_id, "video_id": video_id})
 
-        
+
 
 
