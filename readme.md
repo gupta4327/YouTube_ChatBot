@@ -34,7 +34,7 @@ Built with LangChain, FAISS, OpenAI embeddings, and optimized for async ingestio
 
 ## 📦 Project Structure
 
-YOUTUBE_CHATBOT/ ├── faiss_transcript_index/ # FAISS vector store data ├── src/ │ ├── utils/ │ │ ├── memory_handler.py # Excel chat logger & memory store │ │ ├── response.py # Response chain handler │ │ └── youtube_transcript_processor.py # Transcript fetching & processing │ ├── main_ingest.py # Ingest videos into vector store │ └── main_response.py # Query chain & prompt setup ├── streamlit_app.py # Main Streamlit app ├── .env # OpenAI API keys (local) ├── .example.env # Example .env template ├── memory_db.xlsx # Chat logs (auto-generated) ├── requirements.txt └── readme.md
+YOUTUBE_CHATBOT/ ├── faiss_transcript_index/ # FAISS vector store data ├── src/ │ ├── utils/ │ │ ├── memory_handler.py # Excel chat logger & memory store │ │ ├── response.py # Response chain handler │ │ └── youtube_transcript_processor.py # Transcript fetching & processing │ ├── main_ingest.py # Ingest videos into vector store │ ├── main_response.py # Query chain & prompt setup │ └── streamlit_app.py # Main Streamlit app ├── .env # OpenAI API keys (local) ├── .example.env # Example .env template ├── memory_db.xlsx # Chat logs (auto-generated) ├── requirements.txt └── readme.md
 
 
 ---
