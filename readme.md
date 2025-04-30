@@ -34,24 +34,7 @@ Built with LangChain, FAISS, OpenAI embeddings, and optimized for async ingestio
 
 ## 📦 Project Structure
 
-YOUTUBE_CHATBOT/
-├── faiss_transcript_index/
-├── src/
-│   ├── utils/
-│   │   ├── memory_handler.py
-│   │   ├── response.py
-│   │   └── youtube_transcript_processor.py
-│   ├── main_ingest.py
-│   └── main_response.py
-├── streamlit_app.py
-├── venv_ytcb/
-├── .env
-├── .example.env
-├── .gitignore
-├── memory_db example.xlsx
-├── memory_db.xlsx
-├── readme.md
-└── requirements.txt
+YOUTUBE_CHATBOT/ ├── faiss_transcript_index/ # FAISS vector store data ├── src/ │ ├── utils/ │ │ ├── memory_handler.py # Excel chat logger & memory store │ │ ├── response.py # Response chain handler │ │ └── youtube_transcript_processor.py # Transcript fetching & processing │ ├── main_ingest.py # Ingest videos into vector store │ └── main_response.py # Query chain & prompt setup ├── streamlit_app.py # Main Streamlit app ├── .env # OpenAI API keys (local) ├── .example.env # Example .env template ├── memory_db.xlsx # Chat logs (auto-generated) ├── requirements.txt └── readme.md
 
 
 ---
@@ -157,11 +140,6 @@ Saves chat turns (Human / AI) to Excel via memory_handler.py.
 
  .env-based secrets loading
 
-
-🖼️ Demo Screenshot
-(Add a GIF or screenshot of your chatbot in action here!)
-Example: chat answering a semantic query from a YouTube transcript.
-
 💡 Future Enhancements
 🗃️ Switch to persistent vector DBs (Pinecone, Azure AI Search)
 
@@ -175,9 +153,7 @@ Example: chat answering a semantic query from a YouTube transcript.
 LangChain
 
 FAISS
-
 YouTube Transcript API
-
 Streamlit
 
 📜 License
