@@ -8,3 +8,12 @@ venv_ytcb/
 #ignoring 
 .DS_Store
 
+#pycahce
+src/utils/__pycache__/
+
+#faiss vector store
+faiss_transcript_index/
+
+#memory db
+memory_db.xlsx
+

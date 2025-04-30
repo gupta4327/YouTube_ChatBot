@@ -1,7 +1,6 @@
 import pandas as pd
 import uuid
 from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
 from langchain_core.messages import AIMessage, HumanMessage
 import os
 
@@ -27,7 +26,7 @@ class MemoryHandler:
         Remove records older than 15 minutes from memory.
         """
         try:
-            ist_curr_time = datetime.now(ZoneInfo("Asia/Kolkata"))
+            ist_curr_time = datetime.now()
             time_15min_prior = ist_curr_time - timedelta(minutes=15)
 
             # Filter only fresh records
@@ -43,9 +42,9 @@ class MemoryHandler:
         messages = []
         try:
             # Current IST time
-            ist_curr_time = datetime.now(ZoneInfo("Asia/Kolkata"))
+            ist_curr_time = datetime.now()
             time_15min_prior = ist_curr_time - timedelta(minutes=15)
-
+            print(self.memory_df.info())
             # Filter out old messages
             self.memory_df = self.memory_df[self.memory_df["timestamp"] > time_15min_prior]
 
@@ -76,7 +75,7 @@ class MemoryHandler:
             record_id = str(uuid.uuid4())
             ing_data = {key: [value] for key, value in data.items()}
             ing_data["id"] = [record_id]
-            ing_data["timestamp"] = [datetime.now(ZoneInfo("Asia/Kolkata"))]
+            ing_data["timestamp"] = [datetime.now()]
 
             add_df = pd.DataFrame(ing_data)
 
@@ -84,7 +83,7 @@ class MemoryHandler:
 
             # Clean old records before saving
             self._cleanup_old_records()
-
+            #self.memory_df["timestamp"] = self.memory_df["timestamp"].tz_localize(None)
             self.memory_df.to_excel(self.db_path, index=False)
 
         except Exception as e:

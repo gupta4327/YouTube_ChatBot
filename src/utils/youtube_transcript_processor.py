@@ -1,6 +1,6 @@
 from langchain_community.vectorstores import FAISS
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
-from pytube import YouTube
+import yt_dlp
 from langchain_core.documents import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
@@ -15,28 +15,33 @@ class AsyncYouTubeTranscriptProcessor:
         self.embedding_model = embedding_model
      
     async def _fetch_video_metadata(self, video_id):
-
         try:
             video_url = f"https://www.youtube.com/watch?v={video_id}"
-            yt = await asyncio.to_thread(YouTube, video_url)
-            video_metadata = {"video_id": self.video_id, 
-                                "title": yt.title,
-                                "channel": yt.author, 
-                                "published": yt.publish_date, 
-                                "video_url": video_url}
             
+            # Use yt_dlp to get metadata
+            def get_info():
+                ydl_opts = {'quiet': True, 'skip_download': True}
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    return ydl.extract_info(video_url, download=False)
+
+            info = await asyncio.to_thread(get_info)
+            
+            video_metadata = {
+                "video_id": video_id, 
+                "title": info.get('title'),
+                "channel": info.get('uploader'),
+                "published": info.get('upload_date'),
+                "video_url": video_url
+            }
             return video_metadata
-        
         except Exception as e:
-
-            raise RuntimeError(f"Error in extracting metadata for video : {e}")
+            raise RuntimeError(f"Error in extracting metadata for video {video_id}: {e}")
     
-
     
     async def _fetch_transcript(self, video_id):
         
         try:
-            transcript_list = await asyncio.to_thread(lambda : YouTubeTranscriptApi.get_transcript(self.video_id, languages=["en"]))
+            transcript_list = await asyncio.to_thread(lambda : YouTubeTranscriptApi.get_transcript(video_id, languages=["en"]))
             transcript = " ".join(trans["text"] for trans in transcript_list)
             return transcript
         

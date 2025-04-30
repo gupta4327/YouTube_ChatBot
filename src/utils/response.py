@@ -16,9 +16,9 @@ class Response:
 
     def get_prompt(self):
 
-        prompt = ChatPromptTemplate.from_messages(("system", self.system_prompt), 
-                                    (MessagesPlaceholder(variable_name="message_history")),
-                                    ("human", "{query}"))
+        prompt = ChatPromptTemplate.from_messages([("system", self.system_prompt), 
+                                    MessagesPlaceholder(variable_name="message_history"),
+                                    ("human", "{query}")])
         
         return prompt
         
@@ -35,6 +35,7 @@ class Response:
 
         input_copy = input_dict.copy()
         input_copy.pop("query")
+        print(input_copy)
         return input_copy
         
 
@@ -44,7 +45,7 @@ class Response:
 
         query_chain = RunnableLambda(self.get_query)
         context_chain = RunnableLambda(self.get_query)|self.retriever | RunnableLambda(self.format_docs)
-        memory_chain = RunnableLambda(self.get_memory_inputs)|RunnableLambda(self.get_history)
+        memory_chain = RunnableLambda(self.get_memory_inputs)|RunnableLambda(lambda x: self.get_history(x["user_id"], x["video_id"]))
 
         prompt_input_chain = RunnableParallel({"query": query_chain,
                                           "context": context_chain, 
