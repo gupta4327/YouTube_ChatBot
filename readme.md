@@ -150,10 +150,13 @@ Saves chat turns (Human / AI) to Excel via memory_handler.py.
 🔐 Add session control for multiple users
 
 🙌 Acknowledgements
+
 LangChain
 
 FAISS
+
 YouTube Transcript API
+
 Streamlit
 
 📜 License
