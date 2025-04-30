@@ -88,6 +88,8 @@ YOUTUBE_CHATBOT/
 
 ```bash
 streamlit run streamlit_app.py
+```
+---
 
 ## Capabilities and Examples
 🎯 App Capabilities
