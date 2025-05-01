@@ -48,12 +48,29 @@ class FAISSVectorStoreManager:
         self.save_faiss()
         print(f"[INFO] Successfully ingested {len(video_ids)} video(s).")
 
+    def get_available_videos(self):
+        # Get all document metadata
+        metadatas = list(self.vectorstore.docstore._dict.values())
+        #print(type(metadatas))
+        video_metadata = {}
+        for doc in metadatas:
+            meta = doc.metadata
+            if "video_id" in meta:
+                channel = meta["channel"]
+                title = meta["title"]
+                video_name = channel + " - " + title
+                video_id = meta["video_id"]
+                video_metadata[video_name] = video_id
+               
+        return video_metadata
+
 
 # Example usage
 if __name__ == "__main__":
     async def main():
         video_ids = ["Gfr50f6ZBvo"]  # replace with your list of video IDs
         vectorstore_manager = FAISSVectorStoreManager()
-        await vectorstore_manager.ingest_youtube_videos(video_ids)
+        print(vectorstore_manager.get_available_videos())
+        #await vectorstore_manager.ingest_youtube_videos(video_ids)
 
     asyncio.run(main())

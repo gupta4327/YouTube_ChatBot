@@ -1,4 +1,3 @@
-from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from utils.memory_handler import MemoryHandler
 from utils.response import Response
@@ -10,15 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Initialize FastAPI
-app = FastAPI()
-
-# Setup Classes
-class ChatRequest(BaseModel):
-    user_id: str
-    video_id: str
-    query: str
-
+# Setup class
 class ChatbotOrchestrator:
 
     def __init__(self, faiss_db_path: str, system_prompt: str, memory_db_path: str = "memory_db.xlsx"):
@@ -77,6 +68,7 @@ class ChatbotOrchestrator:
 
         except Exception as e:
             raise RuntimeError(f"Failed to handle chat interaction: {e}")
+        
 
 
 if __name__== "__main__":
@@ -96,5 +88,5 @@ if __name__== "__main__":
         print(answer)
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise RuntimeError(f"ChatBot Failed to answer : {e}")
 

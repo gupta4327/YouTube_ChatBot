@@ -120,7 +120,9 @@ memory_db.xlsx
 
 Logs user query, AI response, timestamps
 
-Handles timezone-safe datetime writing (avoids Excel errors)
+Example:
+
+!["ChatBot Main Screen"](image.png)
 
 📚 How It Works
 📝 Fetch Transcript

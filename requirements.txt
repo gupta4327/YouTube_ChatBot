@@ -6,4 +6,6 @@ python-dotenv
 faiss-cpu
 streamlit
 youtube-transcript-api
-pytube
+yt_dlp
+openpyxl
+python-dotenv
